@@ -1,0 +1,34 @@
+import java.util.Scanner;
+
+public class Lowestcommondivisor {
+	public static void main(String[] args) {
+	Scanner sc=new Scanner(System.in);
+	
+	int a= sc.nextInt();
+	int b=sc.nextInt();
+	int c=sc.nextInt();
+	
+	int max = Math.max(a,  Math.max(b, c));
+			
+	for(int lmc=2; lmc<=max;lmc++) {
+		boolean	[] flag =new boolean[3];
+		if(a%lmc==0) {	
+			//System.out.println(i);
+			flag[0]=true ;
+		}
+		if(b%lmc==0) {
+			//System.out.println(i);
+			flag [1]=true;
+		}
+		if(c%lmc==0) {
+			flag[2]=true;	
+		}
+		if(flag[0]==true && flag[1] == true && flag[2]== true) {
+			System.out.println(lmc);
+			break;
+		}
+			
+			System.out.println(lmc);		
+	}
+  }
+	}
