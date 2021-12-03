@@ -1,0 +1,56 @@
+package Algorithm_Labs;
+import java.util.Scanner;
+public class PrimeDistance_B {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int n=sc.nextInt();
+		int nxtPrime=0;
+		int prePrime=0;
+		for(int i=n+1;i<1000;i++) {
+			if (checkForPrime(i)==true) {
+				nxtPrime=i;
+			break;
+			}
+		}
+		for(int i=n-1;i<n;i--) {
+			if (checkForPrime(i)==true) {
+				prePrime=i;
+			break;
+			}
+		}
+		System.out.println("Next Prime "+nxtPrime);	
+	System.out.println("Pre Prime " +prePrime);
+		
+		int sub =nxtPrime-prePrime;
+		int sub2=(nxtPrime-n);
+		
+	System.out.println("Given Prime -nxt prime" +sub2);
+	System.out.println("Next Prime-PrePrime:"+sub);
+		
+		if(checkForPrime(n)==true) {
+			System.out.println(sub2);
+		}
+		else {
+		System.out.println(sub);
+		}
+}
+public static boolean checkForPrime(int n){
+				boolean isItPrime = true;//true=prime
+				if(n <= 1) 
+				{
+					isItPrime = false;			 
+					return isItPrime;
+				}
+			else
+				{
+				for (int i = 2; i<= n/2; i++) {
+					if ((n % i) == 0)
+					{
+						isItPrime = false;
+						break;
+					}
+				}	
+					return isItPrime;
+		}
+	}
+}
