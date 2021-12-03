@@ -1,0 +1,106 @@
+
+/// Working with Queues////
+import java.util.*;
+public class Queues {
+
+    public static void main(String[] args) {
+    Scanner sc=new Scanner(System.in);
+        
+Queue queArray= new Queue();        
+            while(sc.hasNextLine()) {
+            String input=sc.nextLine();
+    
+
+if(input.split(" ")[0].equalsIgnoreCase("insert")) {                //if the input before the space is "push",  
+    queArray.insert(input.split(" ")[1]);                
+    }
+if(!queArray.isEmpty() && input.equalsIgnoreCase("remove")) {        // if the input is pop activate the pop method
+    queArray.remove();            
+    }
+        }
+    if(queArray.isEmpty()){                    //if the stack is not empty activate the peek function
+    System.out.println("empty");
+        }
+    
+    else{
+        System.out.println(queArray.peekMiddle());
+        }
+    }    
+}
+class Queue{
+    
+    private int maxSize;
+    private String[] queArray;
+    private int front;
+    private int rear;
+    int nItems;
+    int middle;
+    int size;
+    
+public Queue() { // constructor
+    
+    maxSize = 100;
+    queArray = new String[maxSize];
+    front = 0;
+    rear = -1;
+    nItems = 0;    
+    //size=rear+front;
+    }
+public boolean insert(String j) { // put item at rear of queue
+        
+    if(isFull()) return false; //don’t remove if full
+        if(rear == maxSize-1) // deal with wrap around
+        rear = -1;
+        rear++;
+        queArray[rear] = j; // increment rear and insert
+        nItems++;
+        return true;        //successfully inserted
+    }
+
+public String remove() {                 // take item from front of queue
+        
+    if(isEmpty()) return null;      //don’t remove if empty
+        String temp = queArray[front];// get value and incr front
+        front++;
+        if(front == maxSize)         // deal with wraparound
+        front = 0;
+        nItems--;     
+        return temp;
+    } 
+
+public String peekrear(){       // peek at rear of queue
+        return queArray[rear];
+    }
+
+public String peekfront(){       // peek at front of queue
+            return queArray[front];
+    }
+
+public boolean isEmpty() {     // true if queue is empty
+        return (nItems==0);
+    }
+
+public boolean isFull() {     // true if queue is full
+        return (nItems==maxSize);
+    }
+
+public int size() {         
+        return nItems;
+    }
+
+public String peekMiddle() {
+	 size=rear+front;
+	 middle=(size/2);    
+	    return queArray[middle];
+    
+//	 if(nItems%2==0) {            //even number of strings odd number of positions eg 10 strings 9 positions
+//    middle=(front-rear/2)-1;    
+//    return queArray[middle];
+//    }
+//    
+//    if (nItems%2==1){            //odd number of positions even number of strings eg 9 strings 10 positions
+//        middle=(front-rear/2);
+//    }
+//        return queArray[middle];
+    }
+}
