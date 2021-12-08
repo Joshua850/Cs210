@@ -1,0 +1,110 @@
+package Algorithm_Labs;
+import java.util.*;
+public class AsciScore {
+	
+public static String [] theArray;//Declare an array of Strings.
+	
+public static void main(String args[]) {
+		Scanner sc = new Scanner (System.in);
+	
+		int num= Integer.parseInt(sc.nextLine()); 			//Determines the size of the Array.
+		theArray=new String[num];
+		String [] array=new String [num];
+		
+		for(int i=0;i<num;i++) { 
+			theArray[i]=sc.nextLine();  						// Fills the Array with Strings.
+		}
+
+		recMergeSort(array,0,num-1);
+		
+		  for (int i = 0; i<num; i++) {
+	          System.out.println(theArray[i]);
+		  }
+}
+public static void recMergeSort(String[] workSpace, int lowerBound,int upperBound){
+		if(lowerBound == upperBound) { // if range is 1,
+		return; // no use sorting
+		}
+		else{
+		
+		int mid = (lowerBound+upperBound) / 2; // find midpoint
+		
+		recMergeSort(workSpace, lowerBound, mid); // sort low half
+		
+		recMergeSort(workSpace, mid+1, upperBound);// sort high half
+		
+		merge(workSpace, lowerBound, mid+1, upperBound);// merge them
+		}
+}								//    Pass the RightHalf of the Array back into the Method to Split it further
+    			
+public static  boolean score(String first,String second) {			//check and store Asci score
+	int j=0;
+	if(first.length()> second.length()) {
+		j=second.length();
+	}
+	else if(first.length()< second.length()) {
+		j=first.length();
+	}
+	else {
+		j=first.length();
+	}	
+	
+for(int i=0;i<j;i++) {	
+	if((int)first.charAt(i)>(int)second.charAt(i)) {
+		return true;
+	}
+	else if((int)first.charAt(i)<(int)second.charAt(i)){
+		return false;
+		}
+	}
+return true;
+}
+			
+public static void merge(String[] workSpace, int first,int second, int upperBound) {
+			int j = 0; // workspace index
+			int lowerBound = first;
+			int mid = second - 1;
+			int n = upperBound-lowerBound+1; // # of items
+			
+while(first <= mid && second <= upperBound) { //halves not empty
+	if ( sum(theArray[first]) == sum(theArray[second])) {
+	
+		if( score(theArray[first] , theArray[second] )) {
+				workSpace[j++] = theArray[first++];
+				}
+		
+		else {
+			workSpace[j++]=theArray[second++];
+		}
+	}
+		else if(sum(theArray[first]) < sum(theArray[second])) {
+				workSpace[j++]=theArray[first++];	
+				}
+	
+		else {
+		workSpace[j++]=theArray[second++];
+			}
+		}
+		while(first <= mid) { //check first half for remaining
+		workSpace[j++] = theArray[first++];
+		}
+		
+		while(second <= upperBound) { //check second half for remaining
+		workSpace[j++] = theArray[second++];
+		}
+		
+		for(j=0; j<n; j++) {
+		theArray[lowerBound+j]=workSpace[j]; //copy the workspace back
+		}
+	}
+	
+public static int sum(String x) {
+					int sum=0;
+					for(int i=0;i<x.length();i++) {
+						sum=sum+(int)x.charAt(i);
+					}
+					return sum;
+				}  
+	}
+
+
